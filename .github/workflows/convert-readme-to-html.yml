@@ -1,0 +1,29 @@
+name: Convert README to HTML
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests targeting the main branch
+
+jobs:
+  convert-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Make convert.sh executable
+      run: chmod +x ./convert.sh
+
+    - name: Run the conversion script
+      run: ./convert.sh
+
+    - name: Upload index.html as an artifact (optional)
+      uses: actions/upload-artifact@v3
+      with:
+        name: index.html
+        path: index.html
