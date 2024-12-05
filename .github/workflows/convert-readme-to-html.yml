@@ -1,12 +1,9 @@
-name: Convert README to HTML
+name: Convert README to HTML After Deployment
 
 on:
-  push:
-    branches:
-      - main  # Trigger on pushes to the main branch
-  pull_request:
-    branches:
-      - main  # Trigger on pull requests targeting the main branch
+  deployment_status:
+    types: 
+      - success  # This triggers the workflow after a successful deployment
 
 jobs:
   convert-readme:
@@ -21,6 +18,14 @@ jobs:
 
     - name: Run the conversion script
       run: ./convert.sh
+
+    - name: Commit and push the updated index.html
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add index.html
+        git commit -m "Update index.html with README content"
+        git push origin main  # Adjust if your default branch is different
 
     - name: Upload index.html as an artifact (optional)
       uses: actions/upload-artifact@v3
