@@ -1,14 +1,12 @@
 name: Convert README to HTML After Deployment
 
 on:
-  deployment_status:
-    types: 
-      push:
-        branches:
-          - main  # Trigger on pushes to the main branch
-      pull_request:
-        branches:
-          - main  # Trigger on pull requests targeting the main branch
+  push:
+    branches:
+      - main  # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull requests targeting the main branch
 
 jobs:
   convert-readme:
